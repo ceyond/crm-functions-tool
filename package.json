@@ -1,0 +1,20 @@
+{
+  "name": "zoho-demo-deluge-local-engine",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "test": "node --test",
+    "test:e2e": "node scripts/test/run-e2e-suite.js",
+    "test:e2e:crm": "npm run test:e2e",
+    "validate:deluge": "node scripts/cli/validate-deluge-file.js",
+    "watch:deluge": "node scripts/cli/watch-deluge-files.js",
+    "run:zoho": "node scripts/cli/run-zoho.js",
+    "push:zoho:test": "node scripts/zoho/test/push-zoho-function-test.js",
+    "push:zoho:restapi-test": "node scripts/zoho/test/push-zoho-function-restapi-test.js",
+    "push:zoho:commitmsg-test": "node scripts/zoho/test/push-zoho-function-commitmsg-test.js",
+    "push:zoho": "node scripts/zoho/push-zoho-function.js",
+    "push:automation": "node scripts/zoho/push-automation-function.js",
+    "pull:zoho": "node scripts/zoho/pull-zoho-function.js",
+    "sync:zoho": "node scripts/zoho/sync-zoho-functions.js"
+  }
+}
