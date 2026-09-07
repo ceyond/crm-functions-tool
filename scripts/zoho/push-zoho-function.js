@@ -43,19 +43,20 @@ async function main() {
 
   const safeName = String(inputName).trim().replace(/[^a-zA-Z0-9_-]/g, "_");
   const dsPath = resolveDsPath(inputName, codePath);
+  const apiName = path.basename(dsPath, path.extname(dsPath));
 
   const code = fs.readFileSync(dsPath, "utf8");
   const functionNames = extractFunctionMetadata(code) || {
     category: "Automation",
-    displayName: inputName,
-    apiName: safeName.toLowerCase(),
+    displayName: apiName.toLowerCase(),
+    apiName: apiName.toLowerCase(),
   };
 
   const payload = {
     functions: [
       {
-        name: functionNames.displayName,
-        api_name: functionNames.apiName,
+        name: apiName,
+        api_name: apiName,
         category: functionNames.category || "Automation",
         runtime: "Deluge 1.0",
         _code: code,

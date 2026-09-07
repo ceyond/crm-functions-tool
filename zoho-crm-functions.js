@@ -302,12 +302,17 @@ async function updateFunction({
 }) {
   const updateMetadata = JSON.parse(JSON.stringify(metadata));
   if (Array.isArray(updateMetadata.functions) && updateMetadata.functions[0]) {
-    delete updateMetadata.functions[0].api_name;
+    const updateFunctionEntry = updateMetadata.functions[0];
+    const changelogName = updateFunctionEntry.name || updateFunctionEntry.api_name || "";
+    const changelogDescription = updateFunctionEntry.description || "Updated function implementation";
+
+    delete updateFunctionEntry.name;
+    delete updateFunctionEntry.api_name;
     updateMetadata.publish = {
       changelog: buildCommitMessage(
         "update",
-        updateMetadata.functions[0].name || updateMetadata.functions[0].api_name || "",
-        updateMetadata.functions[0].description || "Updated function implementation"
+        changelogName,
+        changelogDescription
       ),
     };
   }

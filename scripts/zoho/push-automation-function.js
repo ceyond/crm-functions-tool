@@ -142,11 +142,12 @@ async function main() {
 
   const safeName = safeFileName(inputName);
   const dsPath = resolveDsPath(inputName, explicitDsPath);
+  const apiName = path.basename(dsPath, path.extname(dsPath));
 
   const code = fs.readFileSync(dsPath, "utf8");
   const functionNames = {
-    displayName: inputName,
-    apiName: safeName.toLowerCase(),
+    displayName: apiName.toLowerCase(),
+    apiName: apiName.toLowerCase(),
   };
 
   const module = await findModule(moduleName);
@@ -157,8 +158,8 @@ async function main() {
   const baseFunctionMetadata = {
     functions: [
       {
-        name: functionNames.displayName,
-        api_name: functionNames.apiName,
+        name: apiName,
+        api_name: apiName,
         category: "Automation",
         runtime: "Deluge 1.0",
         _code: code,
@@ -191,7 +192,7 @@ async function main() {
     module,
     featureType,
     functionId: crmFunctionId,
-    displayName: functionNames.displayName,
+    displayName: apiName,
     description,
   });
 
