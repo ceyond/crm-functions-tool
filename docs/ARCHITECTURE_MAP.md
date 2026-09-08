@@ -1,4 +1,4 @@
-# Zoho CRM Architecture Map
+# Zoho Demo Architecture Map
 
 This file shows how the repository pieces connect.
 
@@ -10,18 +10,19 @@ flowchart LR
     CLI_WATCH["scripts/cli/watch-deluge-files.js"]
     CLI_RUN["scripts/cli/run-zoho.js"]
     E2E["scripts/test/run-e2e-suite.js"]
-    CONFIG["config/*"]
+    SRC["src/*"]
+    CONFIG["config/function-commit-message.js"]
   end
 
   subgraph Zoho["Zoho CRM / Zoho Accounts"]
     AUTH["OAuth token refresh"]
-    CRM_FUNCS["CRM function APIs"]
-    CRM_AUTOMATION["Automation function APIs"]
-    CRM_EXEC["Function execution endpoint"]
+    CRM_FUNCS["/crm/v8/settings/functions"]
+    CRM_AUTOMATION["/crm/v8/settings/automation/functions"]
+    CRM_EXEC["/crm/v2/functions/{api_name}/actions/execute"]
     PULL_API["Function export / code download"]
   end
 
-  subgraph ScriptLayer["Zoho script layer"]
+  subgraph PushLayer["Zoho script layer"]
     PUSH["scripts/zoho/push-zoho-function.js"]
     PUSH_AUTO["scripts/zoho/push-automation-function.js"]
     PULL["scripts/zoho/pull-zoho-function.js"]
@@ -57,7 +58,12 @@ flowchart LR
   CRM_FUNCS --> PULL_API
   PULL_API --> PULL
 
-  SRC["Local scripts and docs"] --> CLI_VALIDATE
+  PUSH --> CRM_FUNCS
+  PUSH_AUTO --> CRM_FUNCS
+  PUSH_AUTO --> CRM_AUTOMATION
+  SYNC --> CRM_FUNCS
+
+  SRC --> CLI_VALIDATE
   SRC --> CLI_RUN
   SRC --> PUSH
   SRC --> PUSH_AUTO
@@ -75,5 +81,6 @@ flowchart LR
 - `scripts/cli/` handles local validation and remote execution.
 - `scripts/zoho/` handles pushing, pulling, syncing, and targeted tests.
 - `scripts/test/run-e2e-suite.js` orchestrates the high-level validation sequence.
-- `config/` contains shared settings and overrides.
+- `src/` provides the parser, tokenizer, runtime, and validator used before Zoho calls.
+- `config/function-commit-message.js` contains shared commit-message defaults used by push helpers.
 
