@@ -134,6 +134,7 @@ npm run push:zoho:commitmsg-test -- <function_name>
 
 - `crmFunctions/` contains Deluge source files.
 - `src/` contains the parser, tokenizer, runtime, validator, and related logic.
+- `tests/` contains unit tests.
 - `scripts/cli/` contains local validation and execution helpers.
 - `scripts/zoho/` contains push, pull, sync, and test-probe scripts.
 - `docs/` contains the technical reference and overview.

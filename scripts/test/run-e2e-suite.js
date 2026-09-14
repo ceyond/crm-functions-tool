@@ -399,9 +399,9 @@ function runLocalOnlyScenario(createFunction) {
   console.log("\n=== Local-only scenario: unit tests -> local create -> validate ===");
 
   const unitTests = runNode("--test", [
-    "test/deluge-catalog.test.js",
-    "test/deluge-engine.test.js",
-    "test/deluge-intelligence.test.js",
+    "tests/deluge-catalog.test.js",
+    "tests/deluge-engine.test.js",
+    "tests/deluge-intelligence.test.js",
   ]);
   results.push({
     label: "Node test suite",
@@ -411,9 +411,9 @@ function runLocalOnlyScenario(createFunction) {
     endpoint: "node --test",
     request: {
       files: [
-        "test/deluge-catalog.test.js",
-        "test/deluge-engine.test.js",
-        "test/deluge-intelligence.test.js",
+        "tests/deluge-catalog.test.js",
+        "tests/deluge-engine.test.js",
+        "tests/deluge-intelligence.test.js",
       ],
     },
     response: unitTests.response,

@@ -1,0 +1,3 @@
+[submodule "docs/global-wiki"]
+	path = docs/global-wiki
+	url = ../global-team-wiki
